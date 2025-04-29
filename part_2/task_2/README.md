@@ -1,0 +1,1 @@
+pip install selenium sqlalchemy webdriver_manager pandas xlrd psycopg2-binary
