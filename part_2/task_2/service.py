@@ -8,21 +8,21 @@ from database import Session, SpimexTradingResult
 
 def save_data_from_link(href):
     session = Session()
-    print(href)
     file_path = f'files/{str(uuid.uuid4())}.xls'
     response = requests.get(href)
     if response.status_code != 200:
         print(f'Не  удалось получить информацию по url {href}')
-        return
+        return 0
     with open(file_path, 'wb+') as file:
         file.write(response.content)
 
+    counter = 0
     try:
         df = pd.read_excel(file_path)
         date = df['Форма СЭТ-БТ'][2].replace('Дата торгов: ', '')
         metric_ton_rows = df[df.eq("Единица измерения: Метрическая тонна").any(axis=1)].index.tolist()
         if not metric_ton_rows:
-            return
+            return 0
         row_with_metric_ton = int(metric_ton_rows[0])
         df = df[row_with_metric_ton + 3:]
 
@@ -46,9 +46,12 @@ def save_data_from_link(href):
                     date=date,
                 )
                 session.add(new_trading_result)
+                counter += 1
+        print(f"Сохранено {counter} записей из ссылки {href}.")
     except Exception as e:
         print(e)
     finally:
         os.remove(file_path)
         session.commit()
         session.close()
+        return counter

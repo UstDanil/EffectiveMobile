@@ -37,6 +37,7 @@ if __name__ == "__main__":
         pass
 
     date_break_flag = False
+    total_counter = 0
     while not date_break_flag:
         file_links = driver.find_elements(
             By.XPATH, "//a[contains(@href,'/upload/reports/oil_xls/')]")
@@ -45,9 +46,11 @@ if __name__ == "__main__":
             if '2022' in href_from_link:
                 date_break_flag = True
                 break
-            save_data_from_link(href_from_link)
+            rows_from_link = save_data_from_link(href_from_link)
+            total_counter += rows_from_link
         next_page_btn = WebDriverWait(driver, 5).until(EC.presence_of_element_located(
                 (By.XPATH, "//span[contains(text(),'Вперед')]")))
         driver.execute_script("arguments[0].scrollIntoView(true);", next_page_btn)
         driver.execute_script("arguments[0].click();", next_page_btn)
         time.sleep(1)
+    print(f"Работа парсера завершена. Сохранено {total_counter} записей.")
