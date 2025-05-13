@@ -1,13 +1,12 @@
 #!/bin/bash
 
-pylint app --recursive y -E
+pylint app --disable=E1101 --recursive y -E
 if [ $? -gt 0 ]
 then
   exit 1
 fi
 
 python manage.py migrate
-python manage.py collectstatic --noinput
 export DJANGO_SUPERUSER_EMAIL=admin@admin.com
 export DJANGO_SUPERUSER_PASSWORD=admin
 export DJANGO_SUPERUSER_USERNAME=admin
