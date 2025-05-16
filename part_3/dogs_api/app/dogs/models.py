@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-
 class Breed(models.Model):
     SIZES = {
         "Tiny": "Tiny",
@@ -22,7 +21,7 @@ class Breed(models.Model):
 class Dog(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Кличка"))
     age = models.IntegerField(verbose_name=_("Возраст"))
-    breed = models.ForeignKey(Breed, on_delete=models.CASCADE, verbose_name=_("Порода"))
+    breed = models.ForeignKey(Breed, on_delete=models.CASCADE, verbose_name=_("Порода"), related_name="dogs")
     gender = models.CharField(max_length=30, verbose_name=_("Пол"))
     color = models.CharField(max_length=50, verbose_name=_("Цвет"))
     favorite_food = models.CharField(max_length=255, verbose_name=_("Любимое блюдо"))

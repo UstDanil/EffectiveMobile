@@ -20,6 +20,7 @@ services:
       - dogs_app_network
     depends_on:
       - db
+    restart: on-failure
 
 
 networks:
