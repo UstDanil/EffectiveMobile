@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Breed(models.Model):
+    """Model corresponding to table dogs_breed."""
     SIZES = {
         "Tiny": "Tiny",
         "Small": "Small",
@@ -19,6 +20,7 @@ class Breed(models.Model):
 
 
 class Dog(models.Model):
+    """Model corresponding to table dogs_dog."""
     name = models.CharField(max_length=255, verbose_name=_("Кличка"))
     age = models.IntegerField(verbose_name=_("Возраст"))
     breed = models.ForeignKey(Breed, on_delete=models.CASCADE, verbose_name=_("Порода"), related_name="dogs")

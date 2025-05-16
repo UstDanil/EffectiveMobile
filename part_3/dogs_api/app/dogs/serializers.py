@@ -4,12 +4,14 @@ from dogs.models import Dog, Breed
 
 
 class DogsSerializer(ModelSerializer):
+    """Default serializer for Dog model."""
     class Meta:
         model = Dog
         fields = '__all__'
 
 
 class DogsListSerializer(ModelSerializer):
+    """Serializer for Dog model (list api method)."""
     avg_breed_age = serializers.DecimalField(read_only=True, max_digits=5, decimal_places=2)
 
     class Meta:
@@ -19,6 +21,7 @@ class DogsListSerializer(ModelSerializer):
 
 
 class DogsDetailSerializer(ModelSerializer):
+    """Serializer for Dog model (detail api method)."""
     breed_dogs_count = serializers.IntegerField(read_only=True)
 
     class Meta:
@@ -28,12 +31,14 @@ class DogsDetailSerializer(ModelSerializer):
 
 
 class BreedsSerializer(ModelSerializer):
+    """Default serializer for Breed model."""
     class Meta:
         model = Breed
         fields = '__all__'
 
 
 class BreedsListSerializer(ModelSerializer):
+    """Serializer for Breed model (list api method)."""
     dogs_count = serializers.IntegerField(read_only=True)
 
     class Meta:
