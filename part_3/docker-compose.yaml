@@ -1,0 +1,28 @@
+services:
+  db:
+    env_file: .env
+    build:
+      dockerfile: db/Dockerfile
+    environment:
+      PGDATA: "/var/lib/postgresql@14/data/pgdata"
+    ports:
+      - ${POSTGRES_LOCAL_PORT}:${POSTGRES_PORT}
+    networks:
+      - dogs_app_network
+
+  dogs-api:
+    env_file: .env
+    build:
+      dockerfile: dogs_api/Dockerfile
+    ports:
+      - ${DOGS_APP_API_LOCAL_PORT}:${DOGS_APP_API_PORT}
+    networks:
+      - dogs_app_network
+    depends_on:
+      - db
+    restart: on-failure
+
+
+networks:
+  dogs_app_network:
+    driver: bridge

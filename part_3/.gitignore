@@ -1,0 +1,7 @@
+.env
+.idea/
+dogs_api/app/config/__pycache__/
+dogs_api/app/dogs/migrations/__pycache__/
+dogs_api/app/dogs/__pycache__/
+dogs_api/app/__pycache__/
+dogs_api/app/dogs/tests/__pycache__/
