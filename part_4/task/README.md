@@ -1,0 +1,1 @@
+pip install selenium sqlalchemy webdriver_manager pandas xlrd asyncio aiohttp asyncpg
