@@ -1,6 +1,5 @@
-import asyncio
 import datetime
-from sqlalchemy import String, Integer, DateTime, func
+from sqlalchemy import String, Integer, DateTime, func, Date
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
@@ -28,7 +27,7 @@ class SpimexTradingResult(Base):
     volume: Mapped[int] = mapped_column(Integer)
     total: Mapped[int] = mapped_column(Integer)
     count: Mapped[int] = mapped_column(Integer)
-    date: Mapped[str] = mapped_column(String(10))
+    date: Mapped[datetime.date] = mapped_column(Date)
     created_on: Mapped[datetime.datetime] = mapped_column(DateTime, server_default=func.now())
     updated_on: Mapped[datetime.datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
 

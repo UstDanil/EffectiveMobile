@@ -3,6 +3,7 @@ import uuid
 import pandas as pd
 import aiohttp
 import aiofiles
+from datetime import datetime
 
 from database import Session, SpimexTradingResult
 
@@ -63,7 +64,7 @@ async def save_data_from_link(href):
                             volume=int(row['Unnamed: 4']),
                             total=int(row['Unnamed: 5']),
                             count=int(row['Unnamed: 14']),
-                            date=date,
+                            date=datetime.strptime(date, '%Y-%m-%d').date(),
                         )
                         session.add(new_trading_result)
                         counter += 1
